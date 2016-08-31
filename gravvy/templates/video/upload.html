@@ -1,0 +1,78 @@
+{% extends "headfoot.html" %}
+
+{% load humanize %}
+
+{% block facebookmeta %}
+<meta property="og:image" content="{{ video.get_photo_thumbnail_url }}" />
+{% endblock %}
+
+{% block title %}
+{% if video.title %}
+Upload clip to Video: {{ video.title }} |
+{% else %}
+Upload clip to Video |
+{% endif %}
+{% endblock %}
+
+{% block morecss %}
+<!-- intl tel input's CSS -->
+<link href="{{STATIC_URL}}intl-tel-input/css/intlTelInput.css" rel="stylesheet" 
+      type="text/css" >
+{% endblock %}
+
+{% block content %}
+
+{{ form.non_field_errors }}
+
+<form action="{% url 'web-video-clip-upload' video.hash_key %}"
+      method="post" enctype="multipart/form-data" id="formUpload">
+  {% csrf_token %}
+  
+  <h3>Append clip to 
+    <a href="{% url 'web-video-detail' video.hash_key %}">
+      {% if video.title %}"{{ video.title }}"{% else %}video{% endif %}
+    </a>
+  </h3>
+  
+  <p class="form-info">It will be truncated to 6 seconds.</p>
+  
+  <div class="form-group">
+    <label for="id_clip">Video</label>
+    <input type="file" accept="video/mp4,video/x-m4v,video/*" class="form-control" id="id_clip"
+           name="clip">
+    {{ form.clip.errors }}
+  </div> <!-- /.form-group -->
+  
+  <div class="form-group">
+    <label for="id_number">Phone number</label>
+    <input type="tel" class="form-control" id="id_number" 
+           name="number" value="{{ form.number.value }}">
+    <ul id="number_errorlist" class="errorlist"></ul>
+    {{ form.formatted_number.errors }}
+  </div> <!-- /.form-group -->
+  
+  <div class="form-group">
+    <label for="id_Name">Name (optional)</label>
+    <input type="text" class="form-control" id="id_name" name="name"
+           placeholder="Name" value="{{ form.name.value }}"
+           maxlength="30">
+    {{ form.name.errors }}
+  </div> <!-- /.form-group -->
+  
+  <input type="tel" class="hidden" id="id_formatted_number" 
+         name="formatted_number">
+  
+  <button type="submit" class="btn btn-default btn-lg">Submit</button>
+</form>
+{% endblock %}
+
+
+{% block morejs %}
+<!-- intl tel input's JS -->
+<script src="{{STATIC_URL}}intl-tel-input/js/intlTelInput.min.js"></script>
+
+<script>
+  // Location of libphonenumber's utils script
+  var libPhoneNumberUtilsScript = "{{STATIC_URL}}intl-tel-input/libphonenumber/build/utils.js";
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<!-- Fixed Navbar
+     ================================================== -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    
+    <div class="navbar-header page-scroll pull-left">
+      <a class="navbar-brand page-scroll" href="{% url 'home' %}">
+        Gravvy</a>
+    </div> <!-- /.navbar-header -->
+        
+    <div id="navbar" class="pull-right navbar-right">
+      <ul class="nav navbar-nav">
+        <li><a href="https://itunes.apple.com/us/app/gravvy/id1017480922?ls=1&mt=8" target="_blank">
+            <div class="get-ios-button">
+              <div class="img"></div>
+              Get for iOS</div></a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+    
+  </div>
+</nav>
+
+<!-- Page Content
+     ================================================== -->
+{% block contentcontainer %}
+<div class="container">
+  {% block content %}
+  {% endblock %}
+</div> <!-- /.container -->
+{% endblock %}
+<!-- Footer
+     ================================================== -->
+<footer class="footer">
+  <div class="container">
+    <!-- Place sticky footer content here -->
+    <div class="col-md-12">
+      <ul>
+	<li><a href="https://twitter.com/gravvyapp" target="_blank">
+            Twitter</a></li>
+	<li><a href="mailto:noddy@nnoduka.com?subject=I%20need%20help%20with%20your%20app&amp;body=Here's%20my%20request">Support</a></li>
+	<li><a href="{% url 'terms' %}">Terms</a></li>
+        <li><a href="{% url 'privacy' %}">Privacy</a></li>
+      </ul>
+    </div>
+    <!-- end sticky footer content-->
+  </div>
+</footer>
+{% endblock %}

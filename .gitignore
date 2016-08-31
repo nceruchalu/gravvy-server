@@ -1,0 +1,9 @@
+*.pyc
+*~
+*.jgz
+*.gz
+*.DS_Store
+
+ENV/
+apns/
+gravvy/settings_secret.py

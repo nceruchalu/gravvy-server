@@ -1,0 +1,18 @@
+{% extends "rest_framework/base.html" %}
+
+{% load static %}
+
+{% block title %}Gravvy REST API{% endblock %}
+
+{% block bootstrap_theme %}
+<link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/bootstrap.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/bootstrap-tweaks.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/api.css' %}"/>
+{% endblock %}
+
+{% block branding %}
+<a class='navbar-brand' rel="nofollow" href="{% url 'api_root' %}">
+  Gravvy REST API <span class="version">1</span>
+</a>
+
+{% endblock %}

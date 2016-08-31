@@ -1,0 +1,10 @@
+/**
+ * This CSS file contains some tweaks specific to the REST Framework's included
+ * Bootstrap theme.
+ * It is separate from `global.css` so that it can be easily overridden.
+ */
+
+/* Add spacing to columns of markdown tables */
+td, th {
+    padding-right: 10px;
+}

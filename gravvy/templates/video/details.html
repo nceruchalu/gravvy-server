@@ -1,0 +1,127 @@
+{% extends "headfoot.html" %}
+
+{% load humanize %}
+
+{% block facebookmeta %}
+<meta property="og:image" content="{{video.get_photo_thumbnail_url}}" />
+{% endblock %}
+
+{% block title %}
+  {% if video.title %}
+  Video: {{video.title}} |
+  {% else %}
+  Video |
+  {% endif %}
+{% endblock %}
+
+{% block morecss %}
+<!-- flowplayer's CSS -->
+<link href="{{STATIC_URL}}flowplayer/skin/functional.css" rel="stylesheet" 
+      type="text/css" >
+
+<style>
+  .basic-playlist {
+     background-image:url("{{video.get_photo_thumbnail_url}}");
+  }
+  
+  {% for clip in clips %}
+    .basic-playlist .fp-playlist a:nth-of-type({{forloop.counter}}) {
+       background-image:url("{{clip.get_photo_thumbnail_url}}");
+    }
+  {% endfor %}
+   
+</style>
+{% endblock %}
+
+{% block contentcontainer %}
+<div class="container player">
+  <div class="panel panel-default">
+    
+    <div class="panel-heading owner">
+      <img class="img-response img-circle" height="40" width="40"
+           {% if video.owner.avatar_thumbnail %}
+           src="{{video.owner.avatar_thumbnail.url}}"
+           {% else %}
+           src="{{STATIC_URL}}img/avatar.png"
+           {% endif %}
+           >
+      
+      <p class="short_name">{{video.owner.get_short_name}}</p>
+      <p id="video-timestamp"
+         data-timestamp="{{video.created_at | date:'c' }}">
+        {{video.created_at|date:"b d, Y"}}</p>
+            
+      <p id="plays-count">
+        <i class="fa fa-eye"></i> 
+        <span>{{video.plays_count|intcomma}}</span></p>
+      
+      <p id="clips-count">
+        <i class="fa fa-video-camera"></i> 
+        <span>{{clips|length|intcomma}} clip{{clips|length|pluralize}}</span>
+      </p>
+      
+    </div> <!-- /.panel-heading -->
+    
+    <div class="panel-body">
+      <div id="player" class="basic-playlist fixed-controls no-volume"
+           data-hashkey="{{video.hash_key}}"
+           data-title="{{video.title}}">
+        {% if clips|length > 1 %}
+        <a class="fp-prev"><i class="fa fa-step-backward"></i></a>
+        <a class="fp-next"><i class="fa fa-step-forward"></i></a>
+        {% endif %}
+      </div> <!-- /#player -->
+      
+    
+      <p id="video-title">{{video.title}}</p>
+      
+      <div id="social-share" class="social-icons">
+        <a href="javascript:;" target="_blank" class="facebook">
+          <i class="fa fa-facebook fa-2x"></i></a>
+        <a href="javascript:;" target="_blank" class="twitter">
+          <i class="fa fa-twitter fa-2x"></i></a>
+        <a href="javascript:;" target="_blank" class="link"
+           data-toggle="popover" data-placement="top" 
+           title="Direct Link" data-html="true" 
+           tabindex="0" role="button" data-trigger="click"
+           data-content="<input type='url' class='form-control' value='http://gravvy.nnoduka.com/v/{{video.hash_key}}/' placeholder='Share URL with friends'>">
+          <i class="fa fa-link fa-2x"></i></a>
+      </div> <!-- /#social-share -->
+      
+    </div> <!-- /.panel-body -->
+        
+  </div> <!-- /.panel -->
+  
+</div> <!-- /.container -->
+
+{% endblock %}
+
+{% block morejs %}
+<!-- flowplayer -->
+<script src="{{STATIC_URL}}flowplayer/flowplayer.min.js"></script>
+
+<!-- Moment formatter -->
+<script src="{{STATIC_URL}}js/moment.min.js"></script>
+
+<script>
+  // Setup an array of clip objects using notes from:
+  // https://flowplayer.org/docs/playlist.html
+  var all_clips = [
+    {% for clip in clips %}
+      {
+         title: '<i class="fa fa-video-camera"></i> {{forloop.counter}}/{{clips|length}}',
+         sources: [{
+           type: 'video/mp4',
+           src: "{{clip.mp4.url}}"
+         }],
+  
+         cuepoints: [0.0]
+  
+      } {% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+ 
+ // What clip should the playlist start at?
+ var playlistStartIndex = {{ initialClipIndex }};
+</script>
+{% endblock %}
