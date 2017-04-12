@@ -228,8 +228,8 @@ Edit it to perform following functionality:
 PATH=/home/nceruchalu/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:.
 
 12,32,52 * * * * ~/webapps/gravvy/apache2/bin/start
-0 2 * * * pg_dump -U nceruchalu_gravv -Fc nceruchalu_gravv > $HOME/db_backups/nceruchalu_gravv/nceruchalu_gravv-`date +\%Y\%m\%d`.sql 2>> $HOME/db_backups/cron.log
-5 2 * * * pg_dump -U nceruchalu_gravv nceruchalu_gravv > $HOME/db_backups/nceruchalu_gravv/nceruchalu_gravv.sql 2>> $HOME/db_backups/cron.log
+0 2 * * * pg_dump -U nceruchalu_gravvy -Fc nceruchalu_gravvy > $HOME/db_backups/nceruchalu_gravvy/nceruchalu_gravvy-`date +\%Y\%m\%d`.sql 2>> $HOME/db_backups/cron.log
+5 2 * * * pg_dump -U nceruchalu_gravvy nceruchalu_gravvy > $HOME/db_backups/nceruchalu_gravvy/nceruchalu_gravvy.sql 2>> $HOME/db_backups/cron.log
 ```
 
 ###### PostgreSQL credentials file

@@ -27,7 +27,7 @@ class CustomDeviceAdmin(DeviceAdmin):
     def send_message(self, request, queryset):
         for device in queryset:
             try:
-                video = self.video_for_device(device);
+                video = self.video_for_device(device)
                 extra = {} # must be an empty dictionary but not None
                 if video:
                     extra[settings.PUSH_VIDEO_HASH_KEY_KEY] = video.hash_key
@@ -50,7 +50,7 @@ class CustomDeviceAdmin(DeviceAdmin):
     def send_message_sound_badge(self, request, queryset):
         for device in queryset:
             try:
-                video = self.video_for_device(device);
+                video = self.video_for_device(device)
                 extra = {} # must be an empty dictionary but not None
                 if video:
                     extra[settings.PUSH_VIDEO_HASH_KEY_KEY] = video.hash_key

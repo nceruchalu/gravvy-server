@@ -293,7 +293,7 @@ def api_root(request, format=None):
       properties, and do not slow down as the dataset size increases.
     
     For more technical details on cursor pagination, see the 
-    ["Building cursors for the Disqus API"](http://cramer.io/2011/03/08/building-cursors-for-the-disqus-api/) blog post.
+    ["Building cursors for the Disqus API"](http://cramer.io/2011/03/08/building-cursors-for-the-disqus-api) blog post.
     
       
     **Example Request:**
